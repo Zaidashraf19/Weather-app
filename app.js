@@ -9,18 +9,23 @@ form.addEventListener('submit', (event) => {
     axios(`http://api.weatherapi.com/v1/current.json?key=b4db485d7c4c485fa6d84351232508&q=${city.value}&aqi=no`)
     .then(res => {
         console.log(res.data);
-        const data = res.data
+        const data = res.data;
+        // output.innerHTML=""
         output.innerHTML += `
-        <div style="background-color: #548cca;" class="p-1 border rounded">
-      <h2>${data.location.name}, ${data.location.country}</h2>
-      <div class="d-flex justify-content-around">
-        <div class="fs-3">${data.current.condition.icon}</div>
-        <div class="fs-3">${data.current.temp_c}°C</div>
-        <div class="fs-4">Feelslike: ${data.current.feelslike_c}°C<br>
-        Humidity: ${data.current.humidity}%<br>
-        Wind:${data.current.wind_kph}Kph</div>
-      </div>
-    </div>
+        <div id = "child" class="p-2 rounded">
+         <div>
+            <img src="https:${data.current.condition.icon}" alt="Weather Icon">
+          </div>
+            <h2 class = "text-start">${data.location.name}, ${data.location.region} - ${data.location.country}</h2> <br>
+          <div class="d-flex justify-content-around flex-wrap g-5">
+              <div class = "fs-1"><i class="fa-solid fa-cloud"></i></div>
+              <div>${data.current.temp_c}°C</div>
+              <div>Feels like: ${data.current.feelslike_c}°C<br>
+              Humidity: ${data.current.humidity}%<br>
+              Wind: ${data.current.wind_kph}Kph</div>
+          </div>
+          <b>${data.location.localtime}</b>
+        </div>
         `
     }).catch(err => {
         console.log('error ==> ' , err);
